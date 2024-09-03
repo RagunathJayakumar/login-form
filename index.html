@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: rgb(0, 0, 0);
+        }
+        .form-container {
+            background:rgb(148, 20, 150);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container div {
+            margin-bottom: 15px;
+        }
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .alt {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Registration Form</h1>
+        <form action="">
+            <div>
+                <input type="text" placeholder="Name" id="name"><br>
+                <span class="alt" id="nameerror">Enter the name</span>
+            </div>
+
+            <div>
+                <input type="text" placeholder="Email" id="email"><br>
+                <span class="alt" id="emailerror">Enter a valid email</span>
+            </div>
+            
+            <div>
+                <input type="text" placeholder="Phone Number" id="phone"><br>
+                <span class="alt" id="phoneerror">Enter a valid phone number</span>
+            </div>
+
+            <div>
+                <input type="password" placeholder="Password" id="password"><br>
+                <span class="alt" id="passworderror">Password must be at least 8 characters long and include both letters and numbers</span>
+            </div>
+
+            <div>
+                <input type="password" placeholder="Re-enter Password" id="confirm_password"><br>
+                <span class="alt" id="confirm_passworderror">Passwords do not match</span>
+            </div>
+
+            <div>
+                <input type="submit" id="sum" value="Submit">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("sum").addEventListener("click", function(event){
+            event.preventDefault();
+
+            var nameregex = /^[a-zA-Z]+$/;
+            var emailregex = /^[a-zA-Z0-9]+@gmail\.com$/;
+            var phoneregex = /^\d{10}$/;
+            var passwordregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // Example: At least 8 characters, including a letter and a number.
+
+            var name = document.getElementById("name");
+            var phone = document.getElementById("phone");
+            var email = document.getElementById("email");
+            var password = document.getElementById("password");
+            var confirmPassword = document.getElementById("confirm_password");
+
+            var phoneerror = document.getElementById("phoneerror");
+            var emailerror = document.getElementById("emailerror");
+            var nameerror = document.getElementById("nameerror");
+            var passworderror = document.getElementById("passworderror");
+            var confirm_passworderror = document.getElementById("confirm_passworderror");
+
+            var val = true;
+
+            // Name Validation
+            if (!nameregex.test(name.value)) {
+                nameerror.style.display = "block";
+                val = false;
+            } else {
+                nameerror.style.display = "none";
+            }
+
+            // Email Validation
+            if (!emailregex.test(email.value)) {
+                emailerror.style.display = "block";
+                val = false;
+            } else {
+                emailerror.style.display = "none";
+            }
+
+            // Phone Validation
+            if (!phoneregex.test(phone.value)) {
+                phoneerror.style.display = "block";
+                val = false;
+            } else {
+                phoneerror.style.display = "none";
+            }
+
+            // Password Validation
+            if (!passwordregex.test(password.value)) {
+                passworderror.style.display = "block";
+                val = false;
+            } else {
+                passworderror.style.display = "none";
+            }
+
+            // Confirm Password Validation
+            if (password.value !== confirmPassword.value) {
+                confirm_passworderror.style.display = "block";
+                val = false;
+            } else {
+                confirm_passworderror.style.display = "none";
+            }
+
+            // Form Submission
+            if (val) {
+                alert("Form submitted successfully");
+            }
+        });
+    </script>
+</body>
+</html>
